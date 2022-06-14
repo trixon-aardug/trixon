@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <!-- Sale Order form inherit -->
+    <record id="view_order_form_for_serial" model="ir.ui.view">
+        <field name="name">sale.order.serial.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="serial"/>
+                <field name="lot_ids" domain="[('product_id', '=', product_id)]" options="{'no_create': True}" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+           
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mobile_brand,mobile.brand,model_mobile_brand,base.group_user,1,1,1,1
+access_mobile_model,mobile.model,model_mobile_model,base.group_user,1,1,1,1
+access_mobile_storage,mobile.storage,model_mobile_storage,base.group_user,1,1,1,1

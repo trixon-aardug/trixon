@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_add_grade" model="ir.ui.view">
+            <field name="name">sale.order.add.grade</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="before">
+                    <field name="x_aa_tx_grade"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

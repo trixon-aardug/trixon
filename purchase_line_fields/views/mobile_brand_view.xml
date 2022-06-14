@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="mobile_menu_catalog" name="Brands" parent="sale.sale_menu_root" sequence="40"/>
+        <menuitem action="purchase_line_fields.mobile_brand_template_action" id="menu_brand_template_action" parent="mobile_menu_catalog"/>
+
+	<menuitem id="mobile_model_catalog" name="Models" parent="sale.sale_menu_root" sequence="41"/>
+        <menuitem action="purchase_line_fields.mobile_model_template_action" id="menu_model_template_action" parent="mobile_model_catalog"/>
+
+        <menuitem id="mobile_storage_catalog" name="Storages" parent="sale.sale_menu_root" sequence="42"/>
+        <menuitem action="purchase_line_fields.mobile_storage_template_action" id="menu_storage_template_action" parent="mobile_storage_catalog"/>
+</odoo>

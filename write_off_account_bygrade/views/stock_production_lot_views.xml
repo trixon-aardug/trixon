@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="update_lot_wizard_view" model="ir.ui.view">
+            <field name="name">Update Lot Product View</field>
+            <field name="model">update.lot.product.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="x_aa_tx_product_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Scrap &amp; Change Grade" name="update_grade" class="oe_highlight" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_lot_product_action" model="ir.actions.act_window">
+            <field name="name">Update Product</field>
+            <field name="res_model">update.lot.product.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="update_lot_wizard_view"/>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="purchase_order_form_add_button" model="ir.ui.view">
+            <field name="name">stock.production.lot.form.add.button</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div/button[@name='action_lot_open_transfers']" position="before">
+                    <button name="%(update_lot_product_action)d" 
+                    icon="fa-recycle"
+                    string="Scrap &amp; Grade"
+                    type="action" 
+                    class="oe_stat_button"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

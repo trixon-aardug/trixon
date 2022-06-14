@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="mobile_brand_form_view" model="ir.ui.view">
+            <field name="name">mobile.brand.form.view</field>
+            <field name="model">mobile.brand</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <form string="Brands">
+                    <sheet name="product_form">
+                        <group>
+                            <group>
+                                <field name="x_aa_tx_name"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <notebook>
+                            <page string="Models">
+                                <field name="x_aa_tx_models"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+     <record id="mobile_brand_tree_view" model="ir.ui.view">
+        <field name="name">mobile.brand.tree</field>
+        <field name="model">mobile.brand</field>
+        <field name="arch" type="xml">
+            <tree string="Brands" multi_edit="1" sample="1">
+            <header>
+            </header>
+                <field name="x_aa_tx_name"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="mobile_brand_kanban_view" model="ir.ui.view">
+        <field name="name">mobile.brand.kanban</field>
+        <field name="model">mobile.brand</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="id"/>
+                <field name="x_aa_tx_name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top mb-0">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="x_aa_tx_name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="mobile_brand_template_action" model="ir.actions.act_window">
+        <field name="name">Brands</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mobile.brand</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="mobile_brand_kanban_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Brand
+            </p>
+        </field>
+    </record>
+</odoo>

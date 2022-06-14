@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_production_lot_form_purchase_line_fields" model="ir.ui.view">
+            <field name="name">stock.production.lot.form.po.line.fields</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[@name='main_group']/group[2]" position="inside">
+                    <field name="create_date"/>
+                    <field name="x_aa_tx_grade"/>
+                    <field name="x_aa_tx_battery_condition"/>
+                    <field name="x_aa_tx_note"/>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='description']" position="after">
+                    <page name="other_info" string="Other Information">
+                        <group>
+                            <group>
+                                <field name="x_aa_tx_booked"/>
+                                <field name="x_aa_tx_name"/>
+                                <field name="x_aa_tx_extern_id"/>
+                                <field name="x_aa_tx_intern_id"/>
+                                <field name="x_aa_tx_imei"/>
+                                <field name="x_aa_tx_brand_id"/>
+                                <field name="x_aa_tx_model_id"/>
+                            </group>
+                            <group>
+                                <field name="x_aa_tx_storage_id"/>
+                                <field name="x_aa_tx_graphics_card"/>
+                                <field name="x_aa_tx_memory"/>
+                                <field name="x_aa_tx_keyboard"/>
+                                <field name="x_aa_tx_colour"/>
+                                <field name="x_aa_tx_other_remarks"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
