@@ -244,6 +244,23 @@ class import_po_line_wizard(models.TransientModel):
                 quantity = False
 
             if purchase_order_brw.state == 'draft':
+                if values.get('x_aa_tx_brand_id'):
+                    brand_id = self.env['mobile.brand'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
+                else:
+                    brand_id = False
+                if values.get('x_aa_tx_model_id'):
+                    model_id = self.env['mobile.model'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
+                        ('x_aa_tx_brand_id', '=', brand_id.id)])
+                else:
+                    model_id = False
+                if values.get('x_aa_tx_storage_id'):
+                    storage_id = self.env['mobile.storage'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
+                        ('x_aa_tx_model_id', '=', model_id.id)])
+                else:
+                    storage_id = False
                 if values.get('price'):
                     standard_price = float(values.get('price'))
                 else:
@@ -267,9 +284,9 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
-                                                    'x_aa_tx_brand_id':brand_id.id or False,
-                                                    'x_aa_tx_model_id':model_id.id or False,
-                                                    'x_aa_tx_storage_id':storage_id.id or False,
+                                                    'x_aa_tx_brand_id':brand_id.id if brand_id else False,
+                                                    'x_aa_tx_model_id':model_id.id if model_id else False,
+                                                    'x_aa_tx_storage_id':storage_id.id if storage_id else False,
                                                     'x_aa_tx_extern_id':values.get('x_aa_tx_extern_id'),
                                                     'x_aa_tx_intern_id':intern_id,
                                                     'x_aa_tx_imei':values.get('x_aa_tx_imei'),
@@ -281,6 +298,23 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_identifier': 'TR.' + purchase_order_brw.name + '/' + str(intern_id),
                                                     })
             elif purchase_order_brw.state == 'sent':
+                if values.get('x_aa_tx_brand_id'):
+                    brand_id = self.env['mobile.brand'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
+                else:
+                    brand_id = False
+                if values.get('x_aa_tx_model_id'):
+                    model_id = self.env['mobile.model'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
+                        ('x_aa_tx_brand_id', '=', brand_id.id)])
+                else:
+                    model_id = False
+                if values.get('x_aa_tx_storage_id'):
+                    storage_id = self.env['mobile.storage'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
+                        ('x_aa_tx_model_id', '=', model_id.id)])
+                else:
+                    storage_id = False
                 if floatTryParse(values.get('x_aa_tx_intern_id')):
                     intern_id = int(float(values.get('x_aa_tx_intern_id')))
                 else:
@@ -300,9 +334,9 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
-                                                    'x_aa_tx_brand_id':brand_id.id or False,
-                                                    'x_aa_tx_model_id':model_id.id or False,
-                                                    'x_aa_tx_storage_id':storage_id.id or False,
+                                                    'x_aa_tx_brand_id':brand_id.id if brand_id else False,
+                                                    'x_aa_tx_model_id':model_id.id if model_id else False,
+                                                    'x_aa_tx_storage_id':storage_id.id if storage_id else False,
                                                     'x_aa_tx_extern_id':values.get('x_aa_tx_extern_id'),
                                                     'x_aa_tx_intern_id':intern_id,
                                                     'x_aa_tx_imei':values.get('x_aa_tx_imei'),
@@ -344,6 +378,23 @@ class import_po_line_wizard(models.TransientModel):
                 quantity = False
 
             if purchase_order_brw.state == 'draft':
+                if values.get('x_aa_tx_brand_id'):
+                    brand_id = self.env['mobile.brand'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
+                else:
+                    brand_id = False
+                if values.get('x_aa_tx_model_id'):
+                    model_id = self.env['mobile.model'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
+                        ('x_aa_tx_brand_id', '=', brand_id.id)])
+                else:
+                    model_id = False
+                if values.get('x_aa_tx_storage_id'):
+                    storage_id = self.env['mobile.storage'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
+                        ('x_aa_tx_model_id', '=', model_id.id)])
+                else:
+                    storage_id = False
                 if floatTryParse(values.get('x_aa_tx_intern_id')):
                     intern_id = int(float(values.get('x_aa_tx_intern_id')))
                 else:
@@ -363,9 +414,9 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
-                                                    'x_aa_tx_brand_id':brand_id.id or False,
-                                                    'x_aa_tx_model_id':model_id.id or False,
-                                                    'x_aa_tx_storage_id':storage_id.id or False,
+                                                    'x_aa_tx_brand_id':brand_id.id if brand_id else False,
+                                                    'x_aa_tx_model_id':model_id.id if model_id else False,
+                                                    'x_aa_tx_storage_id':storage_id.id if storage_id else False,
                                                     'x_aa_tx_extern_id':values.get('x_aa_tx_extern_id'),
                                                     'x_aa_tx_intern_id':intern_id,
                                                     'x_aa_tx_imei':values.get('x_aa_tx_imei'),
@@ -382,6 +433,23 @@ class import_po_line_wizard(models.TransientModel):
                     })                                                   
                                                         
             elif purchase_order_brw.state == 'sent':
+                if values.get('x_aa_tx_brand_id'):
+                    brand_id = self.env['mobile.brand'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
+                else:
+                    brand_id = False
+                if values.get('x_aa_tx_model_id'):
+                    model_id = self.env['mobile.model'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
+                        ('x_aa_tx_brand_id', '=', brand_id.id)])
+                else:
+                    model_id = False
+                if values.get('x_aa_tx_storage_id'):
+                    storage_id = self.env['mobile.storage'].search(
+                        [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
+                        ('x_aa_tx_model_id', '=', model_id.id)])
+                else:
+                    storage_id = False
                 if floatTryParse(values.get('x_aa_tx_intern_id')):
                     intern_id = int(float(values.get('x_aa_tx_intern_id')))
                 else:
@@ -401,9 +469,9 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
-                                                    'x_aa_tx_brand_id':brand_id.id or False,
-                                                    'x_aa_tx_model_id':model_id.id or False,
-                                                    'x_aa_tx_storage_id':storage_id.id or False,
+                                                    'x_aa_tx_brand_id':brand_id.id if brand_id else False,
+                                                    'x_aa_tx_model_id':model_id.id if model_id else False,
+                                                    'x_aa_tx_storage_id':storage_id.id if storage_id else False,
                                                     'x_aa_tx_extern_id':values.get('x_aa_tx_extern_id'),
                                                     'x_aa_tx_intern_id':intern_id,
                                                     'x_aa_tx_imei':values.get('x_aa_tx_imei'),
