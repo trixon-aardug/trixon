@@ -58,3 +58,4 @@ class SalePurchaseOrder(models.TransientModel):
             'inventory_quantity': 1.0,
             }).action_apply_inventory()
         return create_lot
+
