@@ -6,7 +6,7 @@
 #
 ##############################################################################
 
-from odoo import _, api, models, fields
+from odoo import models, fields
 
 
 class SalePurchaseOrder(models.TransientModel):
@@ -37,6 +37,19 @@ class SalePurchaseOrder(models.TransientModel):
             'product_id': record.x_aa_tx_product_id.id,
             'company_id': self.env.company.id,
             'name': find_lot.name,
+            'x_aa_tx_booked': find_lot.x_aa_tx_booked,
+            'x_aa_tx_name': find_lot.x_aa_tx_name,
+            'x_aa_tx_extern_id': find_lot.x_aa_tx_extern_id,
+            'x_aa_tx_intern_id': find_lot.x_aa_tx_intern_id,
+            'x_aa_tx_imei': find_lot.x_aa_tx_imei,
+            'x_aa_tx_brand_id': find_lot.x_aa_tx_brand_id.id,
+            'x_aa_tx_model_id': find_lot.x_aa_tx_model_id.id,
+            'x_aa_tx_storage_id': find_lot.x_aa_tx_storage_id.id,
+            'x_aa_tx_graphics_card': find_lot.x_aa_tx_graphics_card,
+            'x_aa_tx_memory': find_lot.x_aa_tx_memory,
+            'x_aa_tx_keyboard': find_lot.x_aa_tx_keyboard,
+            'x_aa_tx_colour': find_lot.x_aa_tx_colour,
+            'x_aa_tx_other_remarks': find_lot.x_aa_tx_other_remarks,
             })
             self.env['stock.quant'].sudo().create({
             'product_id': record.x_aa_tx_product_id.id,
@@ -45,4 +58,3 @@ class SalePurchaseOrder(models.TransientModel):
             'inventory_quantity': 1.0,
             }).action_apply_inventory()
         return create_lot
-
