@@ -50,6 +50,7 @@ class SalePurchaseOrder(models.TransientModel):
             'x_aa_tx_keyboard': find_lot.x_aa_tx_keyboard,
             'x_aa_tx_colour': find_lot.x_aa_tx_colour,
             'x_aa_tx_other_remarks': find_lot.x_aa_tx_other_remarks,
+            'x_aa_tx_tag_ids' : find_lot.x_aa_tx_tag_ids,
             })
             self.env['stock.quant'].sudo().create({
             'product_id': record.x_aa_tx_product_id.id,
@@ -58,4 +59,3 @@ class SalePurchaseOrder(models.TransientModel):
             'inventory_quantity': 1.0,
             }).action_apply_inventory()
         return create_lot
-

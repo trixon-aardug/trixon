@@ -22,6 +22,7 @@
     'depends': ['purchase', 'stock', 'sale'],
     'data': [
              'security/ir.model.access.csv',
+             'data/sequence_data.xml',
              'views/purchase_views.xml',
              'views/stock_move_view.xml',
              'views/sale_view.xml',

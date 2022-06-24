@@ -54,7 +54,7 @@ class StockProductionLot(models.Model):
         ('silver', 'Silver')], string="Colour")
     x_aa_tx_other_remarks = fields.Char('Other Remarks')
     x_aa_tx_product_qty = fields.Float('Quantity', compute='_custom_product_qty', store=True)
-
+    x_aa_tx_tag_ids = fields.Char('TagID', default=lambda self: self.env['ir.sequence'].next_by_code('purchase.line.fields.lot.tagids') or '')
 
     @api.depends('quant_ids', 'quant_ids.quantity')
     def _custom_product_qty(self):
