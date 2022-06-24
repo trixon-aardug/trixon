@@ -53,3 +53,12 @@ class StockProductionLot(models.Model):
         ('white', 'White'), 
         ('silver', 'Silver')], string="Colour")
     x_aa_tx_other_remarks = fields.Char('Other Remarks')
+    x_aa_tx_product_qty = fields.Float('Quantity', compute='_custom_product_qty', store=True)
+
+
+    @api.depends('quant_ids', 'quant_ids.quantity')
+    def _custom_product_qty(self):
+        for lot in self:
+            # We only care for the quants in internal or transit locations.
+            quants = lot.quant_ids.filtered(lambda q: q.location_id.usage == 'internal' or (q.location_id.usage == 'transit' and q.location_id.company_id))
+            lot.x_aa_tx_product_qty = sum(quants.mapped('quantity'))
