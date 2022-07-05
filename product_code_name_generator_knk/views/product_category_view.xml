@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="product_category_form_view_knk" model="ir.ui.view">
+        <field name="name">product.category.form.knk</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(product.product_template_action_all)d']" position="attributes">
+                <attribute name="context">{'search_default_categ_id': active_id, 'default_categ_id': active_id, 'group_expand': True, 'show_generate_code_action': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="before">
+                <field name="code" class='oe_inline' />
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <group string='Attributes' name="group_attributes">
+                    <field name='attribute_ids' nolabel='1'>
+                        <tree editable='bottom' default_order="sequence">
+                            <field name='sequence' width="15%"/>
+                            <field name='attribute' width="25%"/>
+                            <field name='display_code' width="15%"/>
+                            <field name='display_name' width="15%"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_category_knk_view" model="ir.ui.view">
+        <field name="name">product.category.knk</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="code"/>
+                <field name="product_count"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_attribute_view_form_knk" model="ir.ui.view">
+        <field name="name">product.attribute.form.knk</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value_ids']//tree//field[@name='name']" position="after">
+               <field name='code'/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_only_form_view_knk" model="ir.ui.view">
+        <field name="name">product.template.product.form.knk</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="priority">1</field>
+        <field name="arch" type="xml">            
+            <xpath expr="//page[@name='variants']//field[@name='attribute_line_ids']//tree" position="attributes">
+                <attribute name='default_order'>sequence</attribute>
+            </xpath>
+            <xpath expr="//page[@name='variants']//field[@name='attribute_line_ids']//tree//field[@name='attribute_id']" position="before">
+                <field name="sequence" width="0.6%"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_tree_view_knk" model="ir.ui.view">
+        <field name="name">product.template.stock.tree.knk</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_get_product_code" type="object" string="Generate Product Code"/>
+            </header>
+        </field>
+    </record>
+</odoo>
