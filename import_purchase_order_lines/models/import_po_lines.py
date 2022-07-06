@@ -49,11 +49,11 @@ class import_po_line_wizard(models.TransientModel):
 
     def import_pol(self):
         if self.import_option == 'csv':
-            keys = ['code', 'quantity', 'uom','description', 'price', 'tax', 
-            'x_aa_tx_booked', 'x_aa_tx_sku', 'x_aa_tx_serial', 'x_aa_tx_grade', 
-            'x_aa_tx_battery_condition', 'x_aa_tx_note', 'x_aa_tx_name', 'x_aa_tx_brand_id', 
-            'x_aa_tx_model_id', 'x_aa_tx_storage_id', 'x_aa_tx_extern_id', 'x_aa_tx_intern_id', 
-            'x_aa_tx_imei', 'x_aa_tx_graphics_card', 'x_aa_tx_memory', 'x_aa_tx_keyboard', 
+            keys = ['code', 'quantity', 'uom','description', 'price', 'tax',
+            'x_aa_tx_booked', 'x_aa_tx_sku', 'x_aa_tx_serial', 'x_aa_tx_battery_condition',
+            'x_aa_tx_note', 'x_aa_tx_name', 'x_aa_tx_brand_id', 'x_aa_tx_model_id',
+            'x_aa_tx_storage_id', 'x_aa_tx_extern_id', 'x_aa_tx_intern_id',
+            'x_aa_tx_imei', 'x_aa_tx_graphics_card', 'x_aa_tx_memory', 'x_aa_tx_keyboard',
             'x_aa_tx_colour', 'x_aa_tx_other_remarks'] 
             try:
                 csv_data = base64.b64decode(self.purchase_order_file)
@@ -97,10 +97,14 @@ class import_po_line_wizard(models.TransientModel):
                                 'quantity' : line[1]
                         })
                     elif self.product_details_option == 'from_xls':
-                        if floatTryParse(line[17]):
-                            intern_id = int(float(line[17]))
+                        if floatTryParse(line[16]):
+                            intern_id = int(float(line[16]))
                         else:
-                            intern_id = line[17]
+                            intern_id = line[16]
+                        if floatTryParse(line[17]):
+                            imei_id = int(float(line[17]))
+                        else:
+                            imei_id = line[17]
                         values.update({
                            'code':line[0].split('.')[0],
                            'quantity':line[1],
@@ -111,21 +115,20 @@ class import_po_line_wizard(models.TransientModel):
                            'x_aa_tx_booked':line[6], 
                            'x_aa_tx_sku':line[7],
                            'x_aa_tx_serial':line[8],
-                           # 'x_aa_tx_grade':line[9],
-                           'x_aa_tx_battery_condition':line[10],
-                           'x_aa_tx_note':line[11],
-                           'x_aa_tx_name':line[12],
-                           'x_aa_tx_brand_id':line[13],
-                           'x_aa_tx_model_id':line[14],
-                           'x_aa_tx_storage_id':line[15],
-                           'x_aa_tx_extern_id':line[16],
+                           'x_aa_tx_battery_condition':line[9],
+                           'x_aa_tx_note':line[10],
+                           'x_aa_tx_name':line[11],
+                           'x_aa_tx_brand_id':line[12],
+                           'x_aa_tx_model_id':line[13],
+                           'x_aa_tx_storage_id':line[14],
+                           'x_aa_tx_extern_id':line[15],
                            'x_aa_tx_intern_id':intern_id,
-                           'x_aa_tx_imei':line[18],
-                           'x_aa_tx_graphics_card':line[19],
-                           'x_aa_tx_memory':line[20],
-                           'x_aa_tx_keyboard':line[21],
-                           'x_aa_tx_colour':line[22],
-                           'x_aa_tx_other_remarks':line[23],
+                           'x_aa_tx_imei': imei_id,
+                           'x_aa_tx_graphics_card':line[18],
+                           'x_aa_tx_memory':line[19],
+                           'x_aa_tx_keyboard':line[20],
+                           'x_aa_tx_colour':line[21],
+                           'x_aa_tx_other_remarks':line[22],
                             })
                     else:
                         values.update({
@@ -140,17 +143,20 @@ class import_po_line_wizard(models.TransientModel):
         purchase_order_brw=self.env['purchase.order'].browse(self._context.get('active_id'))
         current_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         product=values.get('code')
-        if values.get('x_aa_tx_brand_id'):
-            brand_id = self.env['mobile.brand'].search(
-                [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
-        if values.get('x_aa_tx_model_id'):
-            model_id = self.env['mobile.model'].search(
-                [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
-                ('x_aa_tx_brand_id', '=', brand_id.id)])
-        if values.get('x_aa_tx_storage_id'):
-            storage_id = self.env['mobile.storage'].search(
-                [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
-                ('x_aa_tx_model_id', '=', model_id.id)])
+        # if values.get('x_aa_tx_brand_id'):
+        #     brand_id = self.env['mobile.brand'].search(
+        #         [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
+        #     print("brand_id>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", brand_id)
+        # if values.get('x_aa_tx_model_id'):
+        #     model_id = self.env['mobile.model'].search(
+        #         [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
+        #         ('x_aa_tx_brand_id', '=', brand_id.id)])
+        #     print("brand_id>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", model_id)
+        # if values.get('x_aa_tx_storage_id') and model_id:
+        #     storage_id = self.env['mobile.storage'].search(
+        #         [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
+        #         ('x_aa_tx_model_id', '=', model_id.id)])
+
         if self.product_details_option == 'from_product':
             if self.import_prod_option == 'barcode':
               product_obj_search=self.env['product.product'].search([('barcode',  '=',values['code'])])
@@ -249,13 +255,13 @@ class import_po_line_wizard(models.TransientModel):
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
                 else:
                     brand_id = False
-                if values.get('x_aa_tx_model_id'):
+                if values.get('x_aa_tx_model_id') and brand_id:
                     model_id = self.env['mobile.model'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
                         ('x_aa_tx_brand_id', '=', brand_id.id)])
                 else:
                     model_id = False
-                if values.get('x_aa_tx_storage_id'):
+                if values.get('x_aa_tx_storage_id') and model_id:
                     storage_id = self.env['mobile.storage'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
                         ('x_aa_tx_model_id', '=', model_id.id)])
@@ -280,7 +286,6 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_booked':values.get('x_aa_tx_booked'),
                                                     'x_aa_tx_sku':values.get('x_aa_tx_sku'),
                                                     'x_aa_tx_serial':values.get('x_aa_tx_serial'),
-                                                    # 'x_aa_tx_grade':values.get('x_aa_tx_grade'),
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
@@ -289,7 +294,7 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_storage_id':storage_id.id if storage_id else False,
                                                     'x_aa_tx_extern_id':values.get('x_aa_tx_extern_id'),
                                                     'x_aa_tx_intern_id':intern_id,
-                                                    'x_aa_tx_imei':values.get('x_aa_tx_imei'),
+                                                    'x_aa_tx_imei': values.get('x_aa_tx_imei'),
                                                     'x_aa_tx_graphics_card':values.get('x_aa_tx_graphics_card'),
                                                     'x_aa_tx_memory':values.get('x_aa_tx_memory'),
                                                     'x_aa_tx_keyboard':values.get('x_aa_tx_keyboard'),
@@ -303,13 +308,13 @@ class import_po_line_wizard(models.TransientModel):
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
                 else:
                     brand_id = False
-                if values.get('x_aa_tx_model_id'):
+                if values.get('x_aa_tx_model_id') and brand_id:
                     model_id = self.env['mobile.model'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
                         ('x_aa_tx_brand_id', '=', brand_id.id)])
                 else:
                     model_id = False
-                if values.get('x_aa_tx_storage_id'):
+                if values.get('x_aa_tx_storage_id') and model_id:
                     storage_id = self.env['mobile.storage'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
                         ('x_aa_tx_model_id', '=', model_id.id)])
@@ -330,7 +335,6 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_booked':values.get('x_aa_tx_booked'),
                                                     'x_aa_tx_sku':values.get('x_aa_tx_sku'),
                                                     'x_aa_tx_serial':values.get('x_aa_tx_serial'),
-                                                    # 'x_aa_tx_grade':values.get('x_aa_tx_grade'),
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
@@ -383,13 +387,13 @@ class import_po_line_wizard(models.TransientModel):
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
                 else:
                     brand_id = False
-                if values.get('x_aa_tx_model_id'):
+                if values.get('x_aa_tx_model_id') and brand_id:
                     model_id = self.env['mobile.model'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
                         ('x_aa_tx_brand_id', '=', brand_id.id)])
                 else:
                     model_id = False
-                if values.get('x_aa_tx_storage_id'):
+                if values.get('x_aa_tx_storage_id') and model_id:
                     storage_id = self.env['mobile.storage'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
                         ('x_aa_tx_model_id', '=', model_id.id)])
@@ -410,7 +414,6 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_booked':values.get('x_aa_tx_booked'),
                                                     'x_aa_tx_sku':values.get('x_aa_tx_sku'),
                                                     'x_aa_tx_serial':values.get('x_aa_tx_serial'),
-                                                    # 'x_aa_tx_grade':values.get('x_aa_tx_grade'),
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),
@@ -438,13 +441,13 @@ class import_po_line_wizard(models.TransientModel):
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_brand_id'))])
                 else:
                     brand_id = False
-                if values.get('x_aa_tx_model_id'):
+                if values.get('x_aa_tx_model_id') and brand_id:
                     model_id = self.env['mobile.model'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_model_id')), 
                         ('x_aa_tx_brand_id', '=', brand_id.id)])
                 else:
                     model_id = False
-                if values.get('x_aa_tx_storage_id'):
+                if values.get('x_aa_tx_storage_id') and model_id:
                     storage_id = self.env['mobile.storage'].search(
                         [('x_aa_tx_name', '=', values.get('x_aa_tx_storage_id')), 
                         ('x_aa_tx_model_id', '=', model_id.id)])
@@ -465,7 +468,6 @@ class import_po_line_wizard(models.TransientModel):
                                                     'x_aa_tx_booked':values.get('x_aa_tx_booked'),
                                                     'x_aa_tx_sku':values.get('x_aa_tx_sku'),
                                                     'x_aa_tx_serial':values.get('x_aa_tx_serial'),
-                                                    # 'x_aa_tx_grade':values.get('x_aa_tx_grade'),
                                                     'x_aa_tx_battery_condition':values.get('x_aa_tx_battery_condition'),
                                                     'x_aa_tx_note':values.get('x_aa_tx_note'),
                                                     'x_aa_tx_name':values.get('x_aa_tx_name'),

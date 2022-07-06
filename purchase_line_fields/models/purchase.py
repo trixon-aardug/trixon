@@ -44,7 +44,18 @@ class PurchaseOrderLine(models.Model):
         ('silver', 'Silver')], string="Colour")
     x_aa_tx_other_remarks = fields.Char('Other Remarks')
     x_aa_tx_identifier = fields.Char('Identifier')
+    x_aa_tx_tag_ids = fields.Char('TagID', compute='_compute_tagfrom_lots')
 
+
+    def _compute_tagfrom_lots(self):
+        for line in self:
+            find_lot_id = self.env['stock.production.lot'].search(
+                [('name', '=', line.x_aa_tx_serial),
+                ('product_id', '=', line.product_id.id)], limit=1)
+            if find_lot_id:
+                line.x_aa_tx_tag_ids = find_lot_id.x_aa_tx_tag_ids
+            else:
+                line.x_aa_tx_tag_ids = ''
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'

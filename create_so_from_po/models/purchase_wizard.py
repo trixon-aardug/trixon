@@ -22,6 +22,7 @@ class SalePurchaseOrder(models.TransientModel):
                 'x_aa_tx_product_id': po_line_id.product_id.id,
                 'x_aa_tx_product_qty': po_line_id.product_qty,
                 'x_aa_tx_serial': po_line_id.x_aa_tx_serial,
+                'x_aa_tx_po_line_id': po_line_id.id,
             }))
         return pr_lines
 
@@ -44,7 +45,7 @@ class SalePurchaseOrder(models.TransientModel):
                     'lot_ids': [(6, 0, find_lot_id.ids)],
                     'order_id': create_so_order.id,
                 })
-        ((record.x_aa_tx_purchase_id).order_line).filtered(lambda line: not line.x_aa_tx_is_sold).write({
+        ((record.x_aa_tx_order_line).x_aa_tx_po_line_id).filtered(lambda line: not line.x_aa_tx_is_sold).write({
             'x_aa_tx_sale_reference_no' : create_so_order.name,
             'x_aa_tx_is_sold' : True,
         })
@@ -59,3 +60,4 @@ class PurchaseOrderLineWizard(models.TransientModel):
     x_aa_tx_product_id = fields.Many2one('product.product', 'Product')
     x_aa_tx_product_qty = fields.Float(string='Quantity', digits='Product Unit of Measure')
     x_aa_tx_serial = fields.Char("Serial")
+    x_aa_tx_po_line_id = fields.Many2one('purchase.order.line')

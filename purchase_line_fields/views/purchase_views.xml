@@ -7,6 +7,7 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet/notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                    <field name="x_aa_tx_tag_ids" optional="show"/>
                     <field name="x_aa_tx_booked" optional="show"/>
                     <field name="x_aa_tx_sku" optional="show"/>
                     <field name="x_aa_tx_identifier" optional="show"/>

@@ -23,6 +23,7 @@
                                         <field name="x_aa_tx_product_id"/>
                                         <field name="x_aa_tx_serial"/>
                                         <field name="x_aa_tx_product_qty"/>
+                                        <field name="x_aa_tx_po_line_id" invisible="1"/>
                                     </tree>
                                 </field> 
                             </page>
