@@ -10,10 +10,10 @@ import csv
 from os import listdir
 import sys
 
-class Download_xls(http.Controller):
+class Download_xls_po(http.Controller):
     
-    @http.route('/web/binary/download_document', type='http', auth="public")
-    def download_document(self,model,id, **kw):
+    @http.route('/web/binary/download_document_po', type='http', auth="public")
+    def download_document_po(self,model,id, **kw):
         Model = request.env[model]
         res = Model.browse(int(id))
         if Model._name == 'import.po.line.wizard':

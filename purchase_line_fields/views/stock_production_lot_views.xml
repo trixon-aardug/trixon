@@ -29,9 +29,12 @@
                                 <field name="x_aa_tx_imei"/>
                                 <field name="x_aa_tx_brand_id"/>
                                 <field name="x_aa_tx_model_id"/>
+                                <field name="x_aa_tx_storage"/>
                             </group>
                             <group>
-                                <field name="x_aa_tx_storage_id"/>
+                                <field name="x_aa_tx_dual_sim"/>
+                                <field name="x_aa_tx_ssd"/>
+                                <field name="x_aa_tx_cpu"/>
                                 <field name="x_aa_tx_graphics_card"/>
                                 <field name="x_aa_tx_memory"/>
                                 <field name="x_aa_tx_keyboard"/>

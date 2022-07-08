@@ -32,7 +32,11 @@ class SalePurchaseOrder(models.TransientModel):
     def update_grade(self):
         find_lot = self.env['stock.production.lot'].browse(self._context.get('active_id'))
         result = find_lot.action_scrap_lot()
+        grade_value = ''
         for record in self:
+            for attrs in record.x_aa_tx_product_id.product_template_variant_value_ids:
+                if attrs.attribute_id.with_context(lang='en_US').name == 'Grade':
+                    grade_value = attrs.product_attribute_value_id.with_context(lang='nl_NL').name
             create_lot = self.env['stock.production.lot'].create({
             'product_id': record.x_aa_tx_product_id.id,
             'company_id': self.env.company.id,
@@ -44,13 +48,17 @@ class SalePurchaseOrder(models.TransientModel):
             'x_aa_tx_imei': find_lot.x_aa_tx_imei,
             'x_aa_tx_brand_id': find_lot.x_aa_tx_brand_id.id,
             'x_aa_tx_model_id': find_lot.x_aa_tx_model_id.id,
-            'x_aa_tx_storage_id': find_lot.x_aa_tx_storage_id.id,
+            'x_aa_tx_storage': find_lot.x_aa_tx_storage,
             'x_aa_tx_graphics_card': find_lot.x_aa_tx_graphics_card,
             'x_aa_tx_memory': find_lot.x_aa_tx_memory,
             'x_aa_tx_keyboard': find_lot.x_aa_tx_keyboard,
             'x_aa_tx_colour': find_lot.x_aa_tx_colour,
+            'x_aa_tx_dual_sim': find_lot.x_aa_tx_dual_sim,
+            'x_aa_tx_ssd': find_lot.x_aa_tx_ssd,
+            'x_aa_tx_cpu': find_lot.x_aa_tx_cpu,
             'x_aa_tx_other_remarks': find_lot.x_aa_tx_other_remarks,
             'x_aa_tx_tag_ids' : find_lot.x_aa_tx_tag_ids,
+            'x_aa_tx_grade' : grade_value,
             })
             self.env['stock.quant'].sudo().create({
             'product_id': record.x_aa_tx_product_id.id,
@@ -59,4 +67,3 @@ class SalePurchaseOrder(models.TransientModel):
             'inventory_quantity': 1.0,
             }).action_apply_inventory()
         return create_lot
-

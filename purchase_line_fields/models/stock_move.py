@@ -18,10 +18,10 @@ class StockMove(models.Model):
     x_aa_tx_booked = fields.Selection([('1', 'True'), 
         ('0', 'Not True')], string="Booked")
     x_aa_tx_name = fields.Selection([('wubbo', 'Wubbo'), 
-        ('marwin', 'Marwin'), 
-        ('yusuf', 'Yusuf'), 
+        ('marwin', 'Marwin'),
+        ('yusuf', 'Yusuf'),
         ('jeffery', 'Jeffery'),
-        ('stan', 'Stan'), 
+        ('stan', 'Stan'),
         ('christiaan', 'Christiaan'),
         ('richard', 'Richard')], string='Name')
     x_aa_tx_extern_id = fields.Char('Extern ID')
@@ -29,16 +29,14 @@ class StockMove(models.Model):
     x_aa_tx_imei = fields.Integer('IMEI')
     x_aa_tx_brand_id = fields.Many2one('mobile.brand', 'Brand')
     x_aa_tx_model_id = fields.Many2one('mobile.model', 'Model', domain="[('x_aa_tx_brand_id', '=', x_aa_tx_brand_id)]")
-    x_aa_tx_storage_id = fields.Many2one('mobile.storage', 'Storage', domain="[('x_aa_tx_model_id', '=', x_aa_tx_model_id)]")
-    x_aa_tx_graphics_card = fields.Selection([('test', 'TEST 1'), 
-        ('test2', 'TEST 2')], string="Graphics Card")
-    x_aa_tx_memory = fields.Selection([('test', 'TEST 1'), 
-        ('test2', 'TEST 2')], string="Memory")
-    x_aa_tx_keyboard = fields.Selection([('test', 'TEST 1'), 
-        ('test2', 'TEST 2')], string="Keyboard")
-    x_aa_tx_colour = fields.Selection([('black', 'Black'), 
-        ('white', 'White'), 
-        ('silver', 'Silver')], string="Colour")
+    x_aa_tx_storage = fields.Char('Storage')
+    x_aa_tx_graphics_card = fields.Char('Graphics Card')
+    x_aa_tx_memory = fields.Char('Memory')
+    x_aa_tx_dual_sim = fields.Char('Dual Sim')
+    x_aa_tx_ssd = fields.Char('SSD')
+    x_aa_tx_cpu = fields.Char('CPU')
+    x_aa_tx_keyboard = fields.Char('Keyboard')
+    x_aa_tx_colour = fields.Char('Colour')
     x_aa_tx_other_remarks = fields.Char('Other Remarks')
 
     @api.model
@@ -56,9 +54,12 @@ class StockMove(models.Model):
                 'x_aa_tx_imei': res.purchase_line_id.x_aa_tx_imei,
                 'x_aa_tx_brand_id': res.purchase_line_id.x_aa_tx_brand_id.id,
                 'x_aa_tx_model_id': res.purchase_line_id.x_aa_tx_model_id.id,
-                'x_aa_tx_storage_id': res.purchase_line_id.x_aa_tx_storage_id.id,
+                'x_aa_tx_storage': res.purchase_line_id.x_aa_tx_storage,
                 'x_aa_tx_graphics_card': res.purchase_line_id.x_aa_tx_graphics_card,
                 'x_aa_tx_memory': res.purchase_line_id.x_aa_tx_memory,
+                'x_aa_tx_dual_sim': res.purchase_line_id.x_aa_tx_dual_sim,
+                'x_aa_tx_ssd': res.purchase_line_id.x_aa_tx_ssd,
+                'x_aa_tx_cpu': res.purchase_line_id.x_aa_tx_cpu,
                 'x_aa_tx_keyboard': res.purchase_line_id.x_aa_tx_keyboard,
                 'x_aa_tx_colour': res.purchase_line_id.x_aa_tx_colour,
                 'x_aa_tx_other_remarks': res.purchase_line_id.x_aa_tx_other_remarks,

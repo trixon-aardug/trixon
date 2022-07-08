@@ -20,7 +20,7 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='uom_po_id']" position="after">
-                    <field name="x_aa_tx_grade"/>
+                    <field name="x_aa_tx_grade" invisible="1"/>
                 </xpath>
             </field>
         </record>

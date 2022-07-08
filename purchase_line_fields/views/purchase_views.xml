@@ -20,12 +20,15 @@
                     <field name="x_aa_tx_name" optional="show"/>
                     <field name="x_aa_tx_brand_id" options="{'no_create': True}" optional="show"/>
                     <field name="x_aa_tx_model_id" options="{'no_create': True}" optional="show"/>
-                    <field name="x_aa_tx_storage_id" options="{'no_create': True}" optional="show"/>
+                    <field name="x_aa_tx_storage" optional="show"/>
                     <field name="x_aa_tx_extern_id" optional="show"/>
                     <field name="x_aa_tx_intern_id" optional="show"/>
                     <field name="x_aa_tx_imei" optional="show"/>
                     <field name="x_aa_tx_graphics_card" optional="show"/>
                     <field name="x_aa_tx_memory" optional="show"/>
+                    <field name="x_aa_tx_dual_sim" optional="show"/>
+                    <field name="x_aa_tx_ssd" optional="show"/>
+                    <field name="x_aa_tx_cpu" optional="show"/>
                     <field name="x_aa_tx_keyboard" optional="show"/>
                     <field name="x_aa_tx_colour" optional="show"/>
                     <field name="x_aa_tx_other_remarks" optional="show"/>
