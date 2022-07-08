@@ -96,7 +96,9 @@ class ProductProduct(models.Model):
                 raise UserError('No Category is Selected, Please Choose a Relevant Category first.')
             if len(code) > 1 and code[-1] == '-':
                 product.default_code = code[:-1]
+                product.barcode = code[:-1]
             else:
                 product.default_code = code
+                product.barcode = code
             product.name = name
         return True

@@ -141,7 +141,7 @@ class import_po_line_wizard(models.TransientModel):
             if self.import_prod_option == 'barcode':
               product_obj_search=self.env['product.product'].search([('barcode',  '=',values['code'])])
             elif self.import_prod_option == 'code':
-                product_obj_search=self.env['product.product'].search([('default_code', '=',values['code'])])
+                product_obj_search=self.env['product.product'].search([('barcode', '=',values['code'])])
             else:
                 product_obj_search=self.env['product.product'].search([('name', '=',values['code'])])
     
@@ -180,7 +180,7 @@ class import_po_line_wizard(models.TransientModel):
             if self.import_prod_option == 'barcode':
               product_obj_search=self.env['product.product'].search([('barcode',  '=',values['code'])])
             elif self.import_prod_option == 'code':
-                product_obj_search=self.env['product.product'].search([('default_code', '=',values['code'])])
+                product_obj_search=self.env['product.product'].search([('barcode', '=',values['code'])])
             else:
                 product_obj_search=self.env['product.product'].search([('name', '=',values['code'])])
             uom_obj_search=self.env['uom.uom'].search([('name','=',uom)])
@@ -339,7 +339,7 @@ class import_po_line_wizard(models.TransientModel):
             if self.import_prod_option == 'barcode':
               product_obj_search=self.env['product.product'].search([('barcode',  '=',values['code'])])
             elif self.import_prod_option == 'code':
-                product_obj_search=self.env['product.product'].search([('default_code', '=',values['code'])])
+                product_obj_search=self.env['product.product'].search([('barcode', '=',values['code'])])
             else:
                 product_obj_search=self.env['product.product'].search([('name', '=',values['code'])])
 
