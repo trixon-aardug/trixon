@@ -20,10 +20,11 @@ class SalePurchaseOrder(models.TransientModel):
             variants = find_lot.product_id.product_template_variant_value_ids
             if variants:
                 dynamic_domain = []
-                for aa in variants[0:-1]:
-                    dynamic_domain += ('product_template_variant_value_ids', 'in', [aa.id]),
-                for aa in variants[-1]:
-                    dynamic_domain += ('product_template_variant_value_ids', 'not in', [aa.id]),
+                for aa in variants:
+                    if aa.attribute_id.with_context(lang='en_US').name == 'Grade':
+                        dynamic_domain += ('product_template_variant_value_ids', 'not in', [aa.id]),
+                    else:
+                        dynamic_domain += ('product_template_variant_value_ids', 'in', [aa.id]),
                 return dynamic_domain
 
     x_aa_tx_product_id = fields.Many2one('product.product', 'Product', required=True, domain=_domain_show_product)
@@ -67,3 +68,4 @@ class SalePurchaseOrder(models.TransientModel):
             'inventory_quantity': 1.0,
             }).action_apply_inventory()
         return create_lot
+
